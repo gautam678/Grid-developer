@@ -26,7 +26,7 @@ each entry in `Ticket prices` correspond to a different ticket and its price.
 
 * If there are no tickets to an event. The minimum price for the event is zero. So everytime you see `$00.00`, it means that event has no tickets available.
 
-* When the number of events are more than the coordinates (size of world = 10, number of events is 120). The program aims to populate events without duplicate locations. Hence atleast twenty events are automatically dropped. Since event generation is random, sometimes more than twenty events are dropped. They are captured by the program and displayed in the command line
+* When the number of events are more than the coordinates (size of world = 10, number of events is 120). The program aims to populate events without duplicate locations. Hence atleast twenty events are automatically dropped. Since event generation is random, sometimes more than twenty events are dropped. They are captured by the program and displayed to the user.
 
 ## Program description and arguments
 The program is written in Python 2.7x . You'll need to install python before running the code.
@@ -42,7 +42,7 @@ optional arguments:
   -h, --help  show this help message and exit
   --verbose   Display events and its attributes
 ```
-### Prerequisites
+### Requires
 * argparse
 
 Argparase is a tool that captures command line arguments. In this case, argparse is used to capture verbosity. By passing `--verbose` the contents of the world with all its events can be displayed in command line. This can be used to verify the accuracy of the program.
@@ -205,10 +205,11 @@ def add_event(self, Event):
 How would you change your program if you were working with a much larger world
 size?
 
-The program I wrote would support bigger world sizes too. All you need to do is change the size of the world, when you pass it as input
+The program I wrote would support bigger world sizes too. All you need to do is change the size of the world, when you pass it as input.
 
 ```python
-size = 10  # Size of the world
+size = 100  # Size of the world
 number_of_events = 20  # Number of events in world
 world = World(size, number_of_events)
 ```
+
