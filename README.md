@@ -43,10 +43,34 @@ optional arguments:
   --verbose   Display events and its attributes
 ```
 ### Requires
+* unittest
 * argparse
+
+unittest is a package that is used for creating test suites in python. You can skip testing by not running `python unittest.py`.
 
 Argparase is a tool that captures command line arguments. In this case, argparse is used to capture verbosity. By passing `--verbose` the contents of the world with all its events can be displayed in command line. This can be used to verify the accuracy of the program.
 
+## Testing the program
+ I have created a test suite with a small set of examples to test if the program works according to the scenerio. In order to run unittests. Do the following:
+ 
+ ```python
+ python unit_test.py
+ ```
+ ### Expected output
+ The output should be as follows:
+ 
+ ```sh
+ Test for event object passed
+.Test for ticket object passed
+.Location is not unique, skipping :  9
+Test for world object passed
+.Test for Manhattan distance passed
+.
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
+ ```
 ### Running the program
 
 ```sh
