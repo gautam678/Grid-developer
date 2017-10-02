@@ -37,7 +37,7 @@ class World:
         for num in range(0, number_events):
             x = random.randint(-size, size)
             y = random.randint(-size, size)
-            numberTickets = random.randint(0, 10)  # Tickets cannot exceed 10
+            numberTickets = random.randint(1, 10)  # Tickets cannot exceed 10
             event = Event(num, x, y, numberTickets)  # Create Event
             self.add_event(event)  # Add event to your world
 

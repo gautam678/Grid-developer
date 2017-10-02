@@ -32,10 +32,10 @@ class GridDeveloper(unittest.TestCase):
         worldObj = World(10, 20)
         result = worldObj.closest_events(4, 5)
         expected_output = [(5, 12.47, 3),
-                           (14, 69.99, 3),
+                           (13, 69.99, 3),
                            (3, 21.19, 4),
-                           (15, 15.22, 4),
-                           (4, 25.35, 5)]
+                           (9, 7.38, 4),
+                           (11, 16.09, 4)]
         self.assertEqual(expected_output, result)
         print "Test for Correct output passed"
 
@@ -46,7 +46,7 @@ class GridDeveloper(unittest.TestCase):
         expected_output = [(5, 12.47, 3)]
         self.assertEqual(expected_output, result)
         print "Test for Correct output passed"
-
+    
 
 if __name__ == '__main__':
     unittest.main()
