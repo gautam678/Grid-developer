@@ -158,8 +158,8 @@ Event 018 - $04.46, Distance 7
 
 ## Questions
 
-How might you change your program if you needed to support multiple events at the
-same location?
+**How might you change your program if you needed to support multiple events at the
+same location?**
 
 The function add_event() checks if an event ID is unique and if the location is unique. The code for this function is as follows:
 
@@ -202,8 +202,8 @@ def add_event(self, Event):
         self.list_of_events[key].append(Event)
 ```
 
-How would you change your program if you were working with a much larger world
-size?
+**How would you change your program if you were working with a much larger world
+size?**
 
 The program I wrote would support bigger world sizes too. All you need to do is change the size of the world, when you pass it as input.
 
