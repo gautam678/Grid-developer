@@ -36,8 +36,8 @@ Tox is a package that is used for unit-testing. You can skip testing by not runn
 ### Running the program
 
 ```sh
-git clone <<repo>>
-cd reponame
+git clone https://github.com/gautam678/Grid-developer.git
+cd Grid-developer
 ```
 
 ```sh
