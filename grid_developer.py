@@ -24,7 +24,6 @@ class World:
     Variables:
     - List of events in world
     """
-    list_of_events = []
 
     def __init__(self, size, number_events):
         """ This is a generator function that generates
@@ -34,6 +33,7 @@ class World:
         and should have zero or more tickets.
         For simplicity, we have taken the maximum number of tickets to be 10
         """
+        self.list_of_events = []
         for num in range(0, number_events):
             x = random.randint(-size, size)
             y = random.randint(-size, size)
@@ -51,10 +51,10 @@ class World:
         """
         for event in self.list_of_events:
             if event.get_id() == Event.id:
-                print "ID is not unique"
+                print "ID is not unique, skipping : ", event.get_id()
                 return 0
             if event.get_coordinates() == (Event.x, Event.y):
-                print "Location is not unique"
+                print "Location is not unique, skipping : ", event.get_id()
                 return 0
         Event.set_ticket_price()
         self.list_of_events.append(Event)
@@ -71,7 +71,7 @@ class World:
             print "Ticket prices: ",
             ticket_prices = event.get_tickets()
             for ticket in ticket_prices:
-                print "%.2f" % ticket.get_price(),
+                print "%05.2f" % ticket.get_price(),
             print "\n"
 
     def closest_events(self, x, y, nearest=5):
@@ -80,14 +80,15 @@ class World:
         distance from input and n-nearest neighbours
         are returned.
         """
+        storeResult = []
         for event in self.list_of_events:
             event.distance_from_input(x, y)
         closeEvents = sorted(self.list_of_events,
                              key=lambda x: x.get_distance(), reverse=False)
         for j in closeEvents[:nearest]:
             minimum = j.minimum_price()
-            print "Event", "{0:0=3d}".format(j.get_id()), \
-                  "-", "$%.2f," % minimum, "Distance", j.distance
+            storeResult.append((j.get_id(), minimum, j.get_distance()))
+        return storeResult
 
 
 class Event:
@@ -138,15 +139,15 @@ class Event:
         These values are added to an instance of class ticket
         """
         while self.numTickets > 0:
-            price = random.uniform(1, 100)
+            price = round(random.uniform(1, 99), 2)
             ticket = Ticket(price)
             self.tickets.append(ticket)
             self.numTickets -= 1
 
     def minimum_price(self):
         """ A function that calculates minimum price of tickets in a given event.
-        The value of tickets are appended to a
-        list and min of that list is calculated.
+        The value of tickets are appended to a list and min of that
+        list is calculated.
         """
         ticket_prices = []
         for j in self.tickets:
