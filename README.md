@@ -11,7 +11,7 @@ number_of_events = 20  # Number of events in world
 ```
 
 * The world is considered to be a square. Hence a size of 10 indicates that x-axis stretches from `-10 to 10` and y-axis stretches from `-10 to 10`.
-* Number of tickets in each event cannot exceed 10 by default altough this option can be modified by the user. This is done to maintain simplicity. You can change the number of tickets by editing the following line in `grid_developer.py` inside class World.
+* Number of tickets in each event cannot exceed 10 by default altough this option can be modified by the user. This is done to maintain simplicity. You can change the number of tickets by editing the following line in `grid_developer.py` inside class World in `grid_developer.py`.
 
 ```python
 numberTickets = random.randint(0, 10)
@@ -24,7 +24,7 @@ Ticket prices:  89.07 87.45 36.74 93.99 42.56 31.01 10.26 51.14 16.17 18.13
 ```
 each entry in `Ticket prices` correspond to a different ticket and its price.
 
-* If there are no tickets to an event. The minimum price for the event is zero. So everytime you see `$00.00`, it means that event has no tickets available.
+* If there are no tickets to an event. The minimum price for the event is zero. Every time you see `$00.00`, it means that event has no tickets available.
 
 * When the number of events are more than the coordinates (size of world = 10, number of events is 120). The program aims to populate events without duplicate locations. Hence atleast twenty events are automatically dropped. Since event generation is random, sometimes more than twenty events are dropped. They are captured by the program and displayed to the user.
 

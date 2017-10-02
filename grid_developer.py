@@ -1,7 +1,7 @@
 """
 Author : Gautam Somappa
 
-The program accepts user location as a pair of co-ordinates,
+The program accepts user location as a pair of coordinates,
 and returns a list of the five closest events,
 along with the cheapest ticket
 price for each event.
