@@ -184,12 +184,11 @@ Event 018 - $04.46, Distance 7
 
 ## Questions
 
-**How might you change your program if you needed to support multiple events at the
-same location?**
+### **How might you change your program if you needed to support multiple events at the same location?**
 
 We could use the data structure, array hash table.
 
-### Hash tables
+#### Hash tables
 A hash table is a data structure that maps a key to its value. The hash function will assign each key to a unique bucket, but most hash table designs employ an imperfect hash function, which might cause hash collisions where the hash function generates the same index for more than one key. We make use of chaining to prevent hash collisions.
 
 Chaining is a way of linking values that belong to the same key thereby avoiding collision. A variant called array hash table uses dynamic array to store all entities that share the same key. Each newly inserted entry gets appended to the end of the dynamic array that is assigned to the slot.
@@ -201,14 +200,13 @@ In python, a array hash table can be implemented using a dictionary pointing to 
 3. If we encounter another event in the same location, append to the list of events. 
 
 
-**How would you change your program if you were working with a much larger world
-size?**
+### **How would you change your program if you were working with a much larger world size?**
 
 In case of larger world size, a optimized approach can be used to find the nearest neighbours from the query point. Once we populate our world with coordinates of events, we can put them into a spatial index. In case of events, they don't change their location very often. Hence making a spatial index incurs initial cost of processing data, whereas searches are instant.
 
 For this case, we can use the spatial data structure called R-trees.
 
-### R-tree
+#### R-tree
 The idea behind R-tree is to cluster nearby events and represent them with their minimum bounding rectangle (box). This minimum bounding rectangle keeps increasing in size until it encloses the virtual `world`. At the leaf level, each rectangle describes a single coordinate; at higher levels, it is made up of aggregation of smaller rectangles.
 
 In the end our world is made up of minimum bounding rectangles that covers all points. Our world now looks something like this:
@@ -218,11 +216,11 @@ In the end our world is made up of minimum bounding rectangles that covers all p
 
 In order to find the nearest neighbours, we can make use of priority queues on r-trees.
 
-### Priority Queues
+#### Priority Queues
 Priority queues are like queues but differ in the fact that each element has a priority associated with it. In a priority queue, an element with high priority is served before an element with low priority. If two elements have the same priority, they are served according to their order in the queue. This gives us a way to pull the smallest one out quickly.
 
-### Algorithm
-1. Make a r-tree with the existing world coordinates.
+#### Algorithm
+1. Make an r-tree with the existing world coordinates.
 2. arrange the biggest boxes into a priority queue in the order from nearest to farthest from query point.
 3. unpack the nearest box removing it from the queue and putting all its children (smaller boxes) back into the queue alongside the bigger ones.
 4. Repeat step 3 recursively, each time putting its children back into the queue.
