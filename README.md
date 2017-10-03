@@ -50,6 +50,14 @@ unittest is a package that is used for creating test suites in python. You can s
 
 Argparase is a tool that captures command line arguments. In this case, argparse is used to capture verbosity. By passing `--verbose` the contents of the world with all its events can be displayed in command line. This can be used to verify the accuracy of the program.
 
+
+## Clone the Repository
+```sh
+git clone https://github.com/gautam678/Grid-developer.git
+cd Grid-developer
+```
+
+
 ## Testing the program
  I have created a test suite with a small set of examples to test if the program works according to the scenerio. In order to run unittests. Do the following:
  
@@ -72,12 +80,6 @@ Ran 4 tests in 0.001s
 OK
  ```
 ### Running the program
-
-```sh
-git clone https://github.com/gautam678/Grid-developer.git
-cd Grid-developer
-```
-
 ```sh
 python main.py --verbose
 ```
@@ -209,31 +211,26 @@ def add_event(self, Event):
 
 In the above case, the function returns 0 if duplicate values are found for location, we can do the following to bypass this.
 
-- Store list_of_events as a dictionary with key pointing to location and value with the list of events in that location
-- Append unique values to a element in dictionary
-- If we encounter another event in the same location, append to an existing key. 
+We could use the data structure, Chained Hash tables with lists.
 
-Modified function is written below:
+- Store list_of_events as a dictionary (hash table) with key pointing to location and value with the list of events in that location
+- Add unique values as an element to the dictionary ( store location as key and event as value)
+- If we encounter another event in the same location, append to the list of events. 
 
-```python
-self.list_of_events = {}
-def add_event(self, Event):
-
-        for key,event in enumerate(self.list_of_events):
-            if event[0].get_id() == Event.id:
-                print "ID is not unique, skipping : ", event.get_id()
-                return 0
-        self.list_of_events[key].append(Event)
-```
 
 **How would you change your program if you were working with a much larger world
 size?**
 
-The program I wrote would support bigger world sizes too. All you need to do is change the size of the world, when you pass it as input.
+In case of larger world size, a optimized approach can be used to find the nearest neighbours from the query point. Once we populate our world with coordinates of events, we can put them into a spatial index. In case of events, they don't change their location very often. Hence making a spatial index, incurs initial cost of processing data whereas searches are instant.
 
-```python
-size = 100  # Size of the world
-number_of_events = 20  # Number of events in world
-world = World(size, number_of_events)
-```
+For this case, we can use the spatial data structure called R-trees.
+
+### R-tree
+The idea behind R-tree is to cluster nearby objects and represent them with their minimum bounding rectangle in the next higher level of the tree. At the leaf level, each rectangle describes a single object; at higher levels the aggregation of an increasing number of objects.
+
+In the end our world is made up of minimum bounding rectangles that covers all points. Our world now looks something like this:
+
+
+[R-tree](https://cdn-images-1.medium.com/max/1600/1*HGrNIlYjee5z6uhOX53zzQ.png)
+
 
