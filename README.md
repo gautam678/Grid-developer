@@ -214,7 +214,7 @@ The idea behind R-tree is to cluster nearby events and represent them with their
 In the end our world is made up of minimum bounding rectangles that covers all points. Our world now looks something like this:
 
 
-[R-tree](https://cdn-images-1.medium.com/max/1600/1*HGrNIlYjee5z6uhOX53zzQ.png)
+![R-tree](https://cdn-images-1.medium.com/max/1600/1*HGrNIlYjee5z6uhOX53zzQ.png)
 
 In order to find the nearest neighbours, we can make use of priority queues on r-trees.
 
