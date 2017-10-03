@@ -195,9 +195,13 @@ Chaining is a way of linking values that belong to the same key thereby avoiding
 
 In python, a array hash table can be implemented using a dictionary pointing to a list of values. Since python doesn't have the concept of arrays, we make use of lists.
 
-1. Store `list_of_events` as a dictionary (hash table) with key pointing to location and value with the list of events in that location
+#### Algorithm
+1. Store a dictionary (hash table) with key pointing to location and value with the list of events in that location
 2. Add unique values as an element to the dictionary ( store location as key and event as value)
-3. If we encounter another event in the same location, append to the list of events. 
+3. If we encounter another event in the same location, append to the list of events.
+
+In the above case, if a location has five events and is closest to the query point. Closest five events would all return from the same location. In order to show results from different events. Have a flag to monitor locations and add a condition to search in locations only where flag is set to `False`.
+
 
 
 ### **How would you change your program if you were working with a much larger world size?**
