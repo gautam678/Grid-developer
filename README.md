@@ -46,7 +46,7 @@ optional arguments:
 * unittest
 * argparse
 
-unittest is a package that is used for creating test suites in python. You can skip testing by not running `python unittest.py`.
+unittest is a package that is used for creating test suites in python. You can skip testing by not running `python unit_test.py`.
 
 Argparase is a tool that captures command line arguments. In this case, argparse is used to capture verbosity. By passing `--verbose` the contents of the world with all its events can be displayed in command line. This can be used to verify the accuracy of the program.
 
@@ -187,50 +187,47 @@ Event 018 - $04.46, Distance 7
 **How might you change your program if you needed to support multiple events at the
 same location?**
 
-The function add_event() checks if an event ID is unique and if the location is unique. The code for this function is as follows:
+We could use the data structure, array hash table.
 
-```python
-def add_event(self, Event):
-        """ This function adds events to a list after checking if the
-        event ID and location is unique. If the location is not unique
-        a zero is returned and the event is discarded.
+### Hash tables
+A hash table is a data structure that maps a key to its value. The hash function will assign each key to a unique bucket, but most hash table designs employ an imperfect hash function, which might cause hash collisions where the hash function generates the same index for more than one key. We make use of chaining to prevent hash collisions.
 
-        If the location is not unique, the event is discared like
-        the previous example.
-        """
-        for event in self.list_of_events:
-            if event.get_id() == Event.id:
-                print "ID is not unique, skipping : ", event.get_id()
-                return 0
-            if event.get_coordinates() == (Event.x, Event.y):
-                print "Location is not unique, skipping : ", event.get_id()
-                return 0
-        Event.set_ticket_price()
-        self.list_of_events.append(Event)
-```
+Chaining is a way of linking values that belong to the same key thereby avoiding collision. A variant called array hash table uses dynamic array to store all entities that share the same key. Each newly inserted entry gets appended to the end of the dynamic array that is assigned to the slot.
 
-In the above case, the function returns 0 if duplicate values are found for location, we can do the following to bypass this.
+In python, a array hash table can be implemented using a dictionary pointing to a list of values. Since python doesn't have the concept of arrays, we make use of lists.
 
-We could use the data structure, Chained Hash tables with lists.
-
-- Store list_of_events as a dictionary (hash table) with key pointing to location and value with the list of events in that location
-- Add unique values as an element to the dictionary ( store location as key and event as value)
-- If we encounter another event in the same location, append to the list of events. 
+[^1] Store `list_of_events` as a dictionary (hash table) with key pointing to location and value with the list of events in that location
+[^2] Add unique values as an element to the dictionary ( store location as key and event as value)
+[^3] If we encounter another event in the same location, append to the list of events. 
 
 
 **How would you change your program if you were working with a much larger world
 size?**
 
-In case of larger world size, a optimized approach can be used to find the nearest neighbours from the query point. Once we populate our world with coordinates of events, we can put them into a spatial index. In case of events, they don't change their location very often. Hence making a spatial index, incurs initial cost of processing data whereas searches are instant.
+In case of larger world size, a optimized approach can be used to find the nearest neighbours from the query point. Once we populate our world with coordinates of events, we can put them into a spatial index. In case of events, they don't change their location very often. Hence making a spatial index incurs initial cost of processing data, whereas searches are instant.
 
 For this case, we can use the spatial data structure called R-trees.
 
 ### R-tree
-The idea behind R-tree is to cluster nearby objects and represent them with their minimum bounding rectangle in the next higher level of the tree. At the leaf level, each rectangle describes a single object; at higher levels the aggregation of an increasing number of objects.
+The idea behind R-tree is to cluster nearby events and represent them with their minimum bounding rectangle (box). This minimum bounding rectangle keeps increasing in size until it encloses the virtual `world`. At the leaf level, each rectangle describes a single coordinate; at higher levels, it is made up of aggregation of smaller rectangles.
 
 In the end our world is made up of minimum bounding rectangles that covers all points. Our world now looks something like this:
 
 
 [R-tree](https://cdn-images-1.medium.com/max/1600/1*HGrNIlYjee5z6uhOX53zzQ.png)
+
+In order to find the nearest neighbours, we can make use of priority queues on r-trees.
+
+### Priority Queues
+Priority queues are like queues but differ in the fact that each element has a priority associated with it. In a priority queue, an element with high priority is served before an element with low priority. If two elements have the same priority, they are served according to their order in the queue. This gives us a way to pull the smallest one out quickly.
+
+### Algorithm
+[^1] Make a r-tree with the existing world coordinates.
+[^2] arrange the biggest boxes into a priority queue in the order from nearest to farthest from query point.
+[^3] unpack the nearest box removing it from the queue and putting all its children (smaller boxes) back into the queue alongside the bigger ones.
+[^4] Repeat step 3 recursively, each time putting its children back into the queue.
+[^5]When we reach the leaves, pop the leaves out, the first 5 leaves will be the closest to the query point.
+
+
 
 
