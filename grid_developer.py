@@ -51,11 +51,11 @@ class World:
         the previous example.
         """
         for event in self.list_of_events:
-            if event.get_id() == Event.id:
-                print "ID is not unique, skipping : ", event.get_id()
+            if event.get_id() == Event.get_id():
+                print "ID is not unique, skipping : ", Event.get_id()
                 return 0
-            if event.get_coordinates() == (Event.x, Event.y):
-                print "Location is not unique, skipping : ", event.get_id()
+            if event.get_coordinates() == Event.get_coordinates():
+                print "Location is not unique, skipping : ", Event.get_id()
                 return 0
         Event.set_ticket_price()
         self.list_of_events.append(Event)

@@ -23,7 +23,7 @@ if __name__ == "__main__":
                         required=False, action="store_true")
     args = parser.parse_args()
     size = 10  # Size of the world
-    random.seed(34)
+    random.seed(32)
     number_of_events = 20  # Number of events in world
     world = World(size, number_of_events)
     if args.verbose:
