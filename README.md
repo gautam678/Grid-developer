@@ -196,9 +196,9 @@ Chaining is a way of linking values that belong to the same key thereby avoiding
 
 In python, a array hash table can be implemented using a dictionary pointing to a list of values. Since python doesn't have the concept of arrays, we make use of lists.
 
-[^1] Store `list_of_events` as a dictionary (hash table) with key pointing to location and value with the list of events in that location
-[^2] Add unique values as an element to the dictionary ( store location as key and event as value)
-[^3] If we encounter another event in the same location, append to the list of events. 
+1. Store `list_of_events` as a dictionary (hash table) with key pointing to location and value with the list of events in that location
+2. Add unique values as an element to the dictionary ( store location as key and event as value)
+3. If we encounter another event in the same location, append to the list of events. 
 
 
 **How would you change your program if you were working with a much larger world
@@ -222,11 +222,11 @@ In order to find the nearest neighbours, we can make use of priority queues on r
 Priority queues are like queues but differ in the fact that each element has a priority associated with it. In a priority queue, an element with high priority is served before an element with low priority. If two elements have the same priority, they are served according to their order in the queue. This gives us a way to pull the smallest one out quickly.
 
 ### Algorithm
-[^1] Make a r-tree with the existing world coordinates.
-[^2] arrange the biggest boxes into a priority queue in the order from nearest to farthest from query point.
-[^3] unpack the nearest box removing it from the queue and putting all its children (smaller boxes) back into the queue alongside the bigger ones.
-[^4] Repeat step 3 recursively, each time putting its children back into the queue.
-[^5]When we reach the leaves, pop the leaves out, the first 5 leaves will be the closest to the query point.
+1. Make a r-tree with the existing world coordinates.
+2. arrange the biggest boxes into a priority queue in the order from nearest to farthest from query point.
+3. unpack the nearest box removing it from the queue and putting all its children (smaller boxes) back into the queue alongside the bigger ones.
+4. Repeat step 3 recursively, each time putting its children back into the queue.
+5. When we reach the leaves, pop the leaves out, the first 5 leaves will be the closest to the query point.
 
 
 
