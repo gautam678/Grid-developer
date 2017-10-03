@@ -1,7 +1,7 @@
 """
 Author : Gautam Somappa
 
-The program accepts user location as a pair of co-ordinates,
+The program accepts user location as a pair of coordinates,
 and returns a list of the five closest events,
 along with the cheapest ticket
 price for each event.
@@ -9,6 +9,7 @@ price for each event.
 
 
 import random
+from event import Event
 
 
 class World:
@@ -37,7 +38,7 @@ class World:
         for num in range(0, number_events):
             x = random.randint(-size, size)
             y = random.randint(-size, size)
-            numberTickets = random.randint(1, 10)  # Tickets cannot exceed 10
+            numberTickets = random.randint(0, 10)  # Tickets cannot exceed 10
             event = Event(num, x, y, numberTickets)  # Create Event
             self.add_event(event)  # Add event to your world
 
@@ -50,11 +51,11 @@ class World:
         the previous example.
         """
         for event in self.list_of_events:
-            if event.get_id() == Event.id:
-                print "ID is not unique, skipping : ", event.get_id()
+            if event.get_id() == Event.get_id():
+                print "ID is not unique, skipping : ", Event.get_id()
                 return 0
-            if event.get_coordinates() == (Event.x, Event.y):
-                print "Location is not unique, skipping : ", event.get_id()
+            if event.get_coordinates() == Event.get_coordinates():
+                print "Location is not unique, skipping : ", Event.get_id()
                 return 0
         Event.set_ticket_price()
         self.list_of_events.append(Event)
@@ -89,89 +90,3 @@ class World:
             minimum = j.minimum_price()
             storeResult.append((j.get_id(), minimum, j.get_distance()))
         return storeResult
-
-
-class Event:
-    """The class Event is unique to a location and has a unique identifier.
-    Event holds the number of tickets available and the price of each ticket.
-    Event also has functions to identify the cheapest ticket.
-
-    Variables:
-    - unique identifier
-    - x coordinate
-    - y coordinate
-    - number of tickets
-    - list containing the objects for class ticket
-    - distance of event from input
-    """
-    numTickets = 0
-
-    def __init__(self, id, x, y, numTickets):
-        self.id = (id+1)
-        self.x = x
-        self.y = y
-        self.numTickets = numTickets
-        self.tickets = []
-
-    def get_id(self):
-        """ Returns the unique identifier for Event
-        """
-        return self.id
-
-    def get_tickets(self):
-        """ Returns the list containing tickets
-        """
-        return self.tickets
-
-    def get_coordinates(self):
-        """ Returns the coordiantes of the event
-        """
-        return self.x, self.y
-
-    def get_distance(self):
-        """ Returns the Manhattan distance of each event from Input
-        """
-        return self.distance
-
-    def set_ticket_price(self):
-        """ A generator function that randomly assigns ticket price to the event.
-        Ticket prices are sampled from a range of 1 - 100.
-        These values are added to an instance of class ticket
-        """
-        while self.numTickets > 0:
-            price = round(random.uniform(1, 99), 2)
-            ticket = Ticket(price)
-            self.tickets.append(ticket)
-            self.numTickets -= 1
-
-    def minimum_price(self):
-        """ A function that calculates minimum price of tickets in a given event.
-        The value of tickets are appended to a list and min of that
-        list is calculated.
-        """
-        ticket_prices = []
-        for j in self.tickets:
-            ticket_prices.append(j.get_price())
-        return min(ticket_prices)
-
-    def distance_from_input(self, sx, sy):
-        """ Function that calculates the Manhattan distance between two
-        coordinated. The manhattan distance is calculates as:
-
-        Manhattan Distance = absolute(destination_x - input_x) +
-                             absolute(destination_y - input_y)
-        """
-        self.distance = abs(self.x - int(sx)) + abs(self.y - int(sy))
-
-
-class Ticket:
-    """The class Ticket holds the price of each ticket.
-    Attributes to a ticket can be easily added here
-    """
-    def __init__(self, price):
-        self.price = price
-
-    def get_price(self):
-        """Returns the price of a ticket
-        """
-        return self.price

@@ -1,11 +1,13 @@
 import unittest
-from grid_developer import World, Event, Ticket
+from grid_developer import World
+from event import Event
+from ticket import Ticket
 import random
-
-
+ 
+ 
 class GridDeveloper(unittest.TestCase):
     """Class that runs unit tests. Each testing case
-       is contained in a seperate function"""
+    is contained in a seperate function"""
 
     def test_instance_world(self):
         """Unit test to check if an instance of part of the class World"""
@@ -28,25 +30,17 @@ class GridDeveloper(unittest.TestCase):
         print "Test for ticket object passed"
 
     def test_output1(self):
-        random.seed(34)
-        worldObj = World(10, 20)
-        result = worldObj.closest_events(4, 5)
-        expected_output = [(5, 12.47, 3),
-                           (13, 69.99, 3),
-                           (3, 21.19, 4),
-                           (9, 7.38, 4),
-                           (11, 16.09, 4)]
-        self.assertEqual(expected_output, result)
-        print "Test for Correct output passed"
+        """Unit test to verify manhattan distance"""
+        event1 = Event(1, 0, 0, 10)
+        event2 = Event(2, 0, 1, 5)
+        event1.distance_from_input(1,1)
+        event2.distance_from_input(1,1)
+        distance_event1 = event1.get_distance()
+        distance_event2 = event2.get_distance()
+        self.assertEqual(2, distance_event1)
+        self.assertEqual(1, distance_event2)
+        print "Test for Manhattan distance passed"
 
-    def test_output2(self):
-        random.seed(34)
-        worldObj = World(10, 20)
-        result = worldObj.closest_events(4, 5,1)
-        expected_output = [(5, 12.47, 3)]
-        self.assertEqual(expected_output, result)
-        print "Test for Correct output passed"
-    
 
 if __name__ == '__main__':
     unittest.main()
