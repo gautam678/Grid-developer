@@ -30,6 +30,7 @@ class GridDeveloper(unittest.TestCase):
         print "Test for ticket object passed"
 
     def test_output1(self):
+        """Unit test to verify manhattan distance"""
         event1 = Event(1, 0, 0, 10)
         event2 = Event(2, 0, 1, 5)
         event1.distance_from_input(1,1)
